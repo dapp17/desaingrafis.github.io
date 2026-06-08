@@ -1,0 +1,2517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily DesignClass 🎓</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* AUDIO CONTROLS */
+        .audio-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .audio-controls:hover {
+            transform: scale(1.05);
+        }
+
+        .audio-btn {
+            background: #667eea;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .audio-btn:hover {
+            background: #764ba2;
+            transform: scale(1.1);
+        }
+
+        .audio-status {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: bold;
+            min-width: 80px;
+        }
+
+        /* FLOATING STICKERS */
+        .sticker {
+            position: fixed;
+            font-size: 40px;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .sticker:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .sticker:nth-child(2) { top: 20%; right: 10%; animation-delay: 1s; }
+        .sticker:nth-child(3) { top: 60%; left: 8%; animation-delay: 2s; }
+        .sticker:nth-child(4) { top: 70%; right: 5%; animation-delay: 1.5s; }
+        .sticker:nth-child(5) { top: 40%; left: 3%; animation-delay: 0.5s; }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .title {
+            font-size: 64px;
+            color: #fff;
+            text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            animation: bounceIn 1s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        /* TAB NAVIGATION */
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid transparent;
+            color: #667eea;
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .tab-btn:hover {
+            background: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .tab-btn.active {
+            background: #667eea;
+            color: #fff;
+            border-color: #fff;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transform: rotate(-2deg);
+            transition: transform 0.3s;
+        }
+
+        .stat-box:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .stat-box:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* FILTERS */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px solid #667eea;
+            color: #667eea;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-btn:hover {
+            background: #667eea;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: #fff;
+        }
+
+        /* MEMORY WALL & GRID LAYOUT */
+        .memory-wall, .quotes-grid, .team-grid, .gallery-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .memory-card, .quote-card, .team-card, .gallery-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            transform: rotate(-1deg);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-card:nth-child(even), 
+        .quote-card:nth-child(even),
+        .team-card:nth-child(even),
+        .gallery-card:nth-child(even) {
+            transform: rotate(1deg);
+        }
+
+        .memory-card:hover, 
+        .quote-card:hover,
+        .team-card:hover,
+        .gallery-card:hover {
+            transform: rotate(0deg) scale(1.05) translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+
+        .memory-card::before, 
+        .team-card::before,
+        .gallery-card::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            height: 30px;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(102, 126, 234, 0.3) 10px,
+                rgba(102, 126, 234, 0.3) 20px
+            );
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .quote-card::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            height: 30px;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(118, 75, 162, 0.3) 10px,
+                rgba(118, 75, 162, 0.3) 20px
+            );
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .polaroid, .team-polaroid, .gallery-polaroid {
+            background: #f8f8f8;
+            padding: 15px;
+            padding-bottom: 60px;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .quote-polaroid {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .memory-photo, .team-photo, .gallery-photo {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-photo img, .team-photo img, .gallery-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .memory-caption, .team-caption, .gallery-caption {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            margin-top: 10px;
+            padding: 0 10px;
+        }
+
+        .quote-text {
+            font-style: italic;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .memory-date, .team-date, .gallery-date {
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            margin-top: 5px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .quote-author {
+            font-weight: bold;
+            color: #764ba2;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .memory-category, .team-category, .gallery-category {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: #fff;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #667eea;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 3;
+        }
+
+        .quote-category {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: #fff;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #764ba2;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 3;
+        }
+
+        .reactions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .reaction-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #eee;
+            border-radius: 20px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .reaction-btn:hover {
+            transform: scale(1.2);
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .reaction-count {
+            font-size: 12px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        /* QUOTES SECTION */
+        .quotes-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            font-size: 48px;
+            color: #fff;
+            text-align: center;
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        /* ABOUT SECTION */
+        .about-section {
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .about-text {
+            text-align: center;
+            color: #333;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* MODAL */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #667eea;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: #764ba2;
+            transform: scale(1.1);
+        }
+
+        /* MODAL IMAGE ZOOM */
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+            position: relative;
+            cursor: zoom-in;
+            transition: cursor 0.3s;
+        }
+
+        .modal-image.zoomed {
+            cursor: zoom-out;
+            cursor: grab;
+        }
+
+        .modal-image.zoomed:active {
+            cursor: grabbing;
+        }
+
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-image.zoomed img {
+            object-fit: contain;
+            background: #f8f8f8;
+        }
+
+        .zoom-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-image:hover .zoom-controls {
+            opacity: 1;
+        }
+
+        .zoom-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .zoom-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .reset-zoom {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .modal-image.zoomed .reset-zoom {
+            opacity: 1;
+        }
+
+        .reset-zoom:hover {
+            background: white;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .modal-date {
+            color: #999;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .modal-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .modal-reactions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .modal-reaction-btn {
+            background: #f0f0f0;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-reaction-btn:hover {
+            transform: scale(1.2);
+            background: #e0e0e0;
+        }
+
+        /* ZOOM OVERLAY */
+        .zoom-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+            cursor: zoom-out;
+        }
+
+        .zoom-overlay.active {
+            display: flex;
+        }
+
+        .zoom-overlay-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .zoom-overlay-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .zoom-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #667eea;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            margin-top: 60px;
+        }
+
+        .footer-heart {
+            font-size: 24px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+        }
+
+        @media (max-width: 1200px) {
+            .memory-wall, .quotes-grid, .team-grid, .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title { 
+                font-size: 36px; 
+            }
+            .subtitle { 
+                font-size: 16px; 
+            }
+            
+            .stats {
+                gap: 20px;
+            }
+            
+            .stat-box {
+                padding: 15px 20px;
+            }
+            
+            .stat-number {
+                font-size: 28px;
+            }
+            
+            .stat-label {
+                font-size: 12px;
+            }
+            
+            .filters {
+                gap: 10px;
+                padding: 15px 10px;
+            }
+            
+            .filter-btn {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+            
+            .memory-wall, .quotes-grid, .team-grid, .gallery-grid { 
+                grid-template-columns: 1fr;
+                padding: 30px 15px;
+                gap: 25px;
+            }
+            
+            .memory-card, .quote-card, .team-card, .gallery-card {
+                max-width: 400px;
+                margin: 0 auto;
+                width: 100%;
+            }
+            
+            .memory-photo, .team-photo, .gallery-photo {
+                height: 200px;
+                font-size: 48px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+            
+            .quotes-section {
+                padding: 30px 15px;
+            }
+            
+            .sticker {
+                font-size: 30px;
+            }
+            
+            .modal-content {
+                max-height: 95vh;
+            }
+            
+            .modal-image {
+                height: 200px;
+                font-size: 80px;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .modal-title {
+                font-size: 24px;
+            }
+            
+            .about-content {
+                padding: 25px;
+            }
+            
+            .about-text {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            .header {
+                padding: 40px 15px 30px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .stat-box {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            
+            .memory-card, .quote-card, .team-card, .gallery-card {
+                padding: 12px;
+            }
+            
+            .polaroid, .team-polaroid, .gallery-polaroid, .quote-polaroid {
+                padding: 12px;
+                padding-bottom: 50px;
+            }
+            
+            .memory-photo, .team-photo, .gallery-photo {
+                height: 180px;
+                font-size: 40px;
+            }
+            
+            .memory-caption, .team-caption, .gallery-caption {
+                font-size: 16px;
+            }
+            
+            .quote-text {
+                font-size: 14px;
+            }
+            
+            .reactions {
+                gap: 8px;
+            }
+            
+            .reaction-btn {
+                padding: 6px 12px;
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .sticker {
+                font-size: 24px;
+            }
+            
+            .audio-controls {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+            }
+            
+            .audio-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
+            .audio-status {
+                font-size: 12px;
+                min-width: 70px;
+            }
+            
+            .about-content {
+                padding: 20px;
+            }
+            
+            .about-text {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- AUDIO CONTROLS -->
+    <div class="audio-controls">
+        <button class="audio-btn" id="audioToggle">▶️</button>
+        <div class="audio-status" id="audioStatus">Paused</div>
+    </div>
+    
+    <!-- AUDIO ELEMENT -->
+    <audio id="backgroundMusic" loop>
+        <source src="bekburner.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- FLOATING STICKERS -->
+    <div class="sticker">⭐</div>
+    <div class="sticker">🎈</div>
+    <div class="sticker">✨</div>
+    <div class="sticker">💫</div>
+    <div class="sticker">🎉</div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1 class="title">KELAS DESIGN GRAFIS REGULLER 🎓</h1>
+        <p class="subtitle">Desain Grafis • Tahun Ajaran 2025/2026</p>
+        
+        <!-- TAB NAVIGATION -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" onclick="switchTab('home')">🏠 Home</button>
+            <button class="tab-btn" onclick="switchTab('gallery')">📸 Gallery</button>
+            <button class="tab-btn" onclick="switchTab('quotes')">💌 Your Quotes In Here</button>
+            <button class="tab-btn" onclick="switchTab('about')">👥 About Us</button>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-number">31</div>
+                <div class="stat-label">MAHASIGMA</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">infinite</div>
+                <div class="stat-label">Hari Bersama</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters tab-content active" id="homeTab">
+        <button class="filter-btn active" onclick="filterMemories('all')">SEMUA AKTIVITAS 📸</button>
+        <button class="filter-btn" onclick="filterMemories('trip')">EVENT DI LUAR KELAS 🚌</button>
+        <button class="filter-btn" onclick="filterMemories('party')">FOTO BARENG SATU KELAS 📸</button>
+        <button class="filter-btn" onclick="filterMemories('study')">BELAJAR TIPIS 📚</button>
+        <button class="filter-btn" onclick="filterMemories('fun')">SEMANGAT BERAKTIFITAS 🤪</button>
+    </div>
+
+    <!-- MEMORY WALL -->
+    <div class="memory-wall tab-content active" id="memoryWall">
+        <!-- Trip Memories -->
+        <div class="memory-card" data-category="trip">
+            <div class="memory-category">EVENT DI LUAR KELAS</div>
+            <div class="polaroid" onclick="openModal('trip1')">
+                <div class="memory-photo">
+                    <img src="zen.jpg" alt="Events outside of class">
+                </div>
+                <div class="memory-caption">MOSEUM ZEN 1</div>
+                <div class="memory-date">1 Desember 2025</div>
+            </div>
+            <div class="reactions">
+                <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">24</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">18</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">15</span></button>
+            </div>
+        </div>
+
+        <div class="memory-card" data-category="trip">
+            <div class="memory-category">EVENT DI LUAR KELAS</div>
+            <div class="polaroid" onclick="openModal('trip1')">
+                <div class="memory-photo">
+                    <img src="museum seni.jpeg" alt="Events outside of class">
+                </div>
+                <div class="memory-caption">MOSEUM SENI RUPA DAN KERAMIK</div>
+                <div class="memory-date">27 Januari 2026</div>
+            </div>
+            <div class="reactions">
+                <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">24</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">18</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">15</span></button>
+            </div>
+        </div>
+
+        <!-- Party Memories -->
+        <div class="memory-card" data-category="party">
+            <div class="memory-category">FOTO BARENG SATU KELAS</div>
+            <div class="polaroid" onclick="openModal('party1')">
+                <div class="memory-photo">
+                    <img src="tes1.jpg" alt="Admission of student">
+                </div>
+                <div class="memory-caption">ADMISSION OF STUDENT</div>
+                <div class="memory-date">27 September 2025</div>
+            </div>
+            <div class="reactions">
+                <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">31</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">12</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">8</span></button>
+            </div>
+        </div>
+
+         <div class="memory-card" data-category="party">
+            <div class="memory-category">One class photo</div>
+            <div class="polaroid" onclick="openModal('party2')">
+                <div class="memory-photo">
+                    <img src="CAFE.jpg" alt="Admission of student">
+                </div>
+                <div class="memory-caption">CAFE MOMMENT</div>
+                <div class="memory-date">27 September 2025</div>
+            </div>
+            <div class="reactions">
+                <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">31</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">12</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">8</span></button>
+            </div>
+        </div>
+
+<div class="memory-card" data-category="party">
+            <div class="memory-category">One class photo</div>
+            <div class="polaroid" onclick="openModal('party3')">
+                <div class="memory-photo">
+                    <img src="USI.jpg" alt="Admission of student">
+                </div>
+                <div class="memory-caption">UNIVERSITAS SAINS INDONESIA</div>
+                <div class="memory-date">30 Oktober 2025</div>
+            </div>
+            <div class="reactions">
+                <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">31</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">12</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">8</span></button>
+            </div>
+        </div>
+
+<div class="memory-card" data-category="party">
+            <div class="memory-category">One class photo</div>
+            <div class="polaroid" onclick="openModal('party4')">
+                <div class="memory-photo">
+                    <img src="gacoan.jpg" alt="Admission of student">
+                </div>
+                <div class="memory-caption">GACOAN MOMMENT</div>
+                <div class="memory-date">4 November 2025</div>
+            </div>
+            <div class="reactions">
+                <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">31</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">12</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">8</span></button>
+         </div>
+         </div>
+
+            <div class="memory-card" data-category="party">
+            <div class="memory-category">One class photo</div>
+            <div class="polaroid" onclick="openModal('party5')">
+                <div class="memory-photo">
+                    <img src="uts.jpg" alt="EXAM MOMMENT">
+                </div>
+                <div class="memory-caption">EXAM MOMMENT</div>
+                <div class="memory-date">18 November 2025</div>
+            </div>
+            <div class="reactions">
+                <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">31</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">12</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">8</span></button>
+            </div>
+        </div>
+
+        <!-- Study Memories -->
+        <div class="memory-card" data-category="study">
+            <div class="memory-category">Belajar</div>
+            <div class="polaroid" onclick="openModal('study1')">
+                <div class="memory-photo">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Belajar bareng">
+                </div>
+                <div class="memory-caption">ART PEOPLE</div>
+                <div class="memory-date">KAPANPUN</div>
+            </div>
+            <div class="reactions">
+                <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">28</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">9</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">22</span></button>
+            </div>
+        </div>
+
+        <!-- Fun Memories -->
+        <div class="memory-card" data-category="fun">
+            <div class="memory-category">Seru-seruan</div>
+            <div class="polaroid" onclick="openModal('fun1')">
+                <div class="memory-photo">
+                    <img src="https://images.unsplash.com/photo-1511882150382-421056c89033?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Main game bareng">
+                </div>
+                <div class="memory-caption">Sparing Mobile Legends</div>
+                <div class="memory-date">25 November 2025</div>
+            </div>
+            <div class="reactions">
+                <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">19</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">27</span></button>
+                <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">14</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GALLERY TAB -->
+    <div class="tab-content" id="galleryTab">
+        <h2 class="section-title">📸 Gallery Collection</h2>
+        <div class="gallery-grid">
+            <div class="gallery-card" data-category="all">
+                <div class="gallery-category">Best Moments</div>
+                <div class="gallery-polaroid" onclick="openModal('gallery1')">
+                    <div class="gallery-photo">
+                        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Class Photo">
+                    </div>
+                    <div class="gallery-caption">Class Photo Session 2025</div>
+                    <div class="gallery-date">15 Januari 2025</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">45</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">12</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">28</span></button>
+                </div>
+            </div>
+
+            <div class="gallery-card" data-category="all">
+                <div class="gallery-category">Study Time</div>
+                <div class="gallery-polaroid" onclick="openModal('gallery2')">
+                    <div class="gallery-photo">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Study Session">
+                    </div>
+                    <div class="gallery-caption">Study Group Marathon</div>
+                    <div class="gallery-date">20 Februari 2025</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">38</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">8</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">22</span></button>
+                </div>
+            </div>
+
+            <div class="gallery-card" data-category="all">
+                <div class="gallery-category">Fun Activities</div>
+                <div class="gallery-polaroid" onclick="openModal('gallery3')">
+                    <div class="gallery-photo">
+                        <img src="https://images.unsplash.com/photo-1511882150382-421056c89033?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Game Night">
+                    </div>
+                    <div class="gallery-caption">Game Night Extravaganza</div>
+                    <div class="gallery-date">5 Maret 2025</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">52</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">35</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">41</span></button>
+                </div>
+            </div>
+
+            <div class="gallery-card" data-category="all">
+                <div class="gallery-category">Field Trip</div>
+                <div class="gallery-polaroid" onclick="openModal('gallery4')">
+                    <div class="gallery-photo">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Museum Visit">
+                    </div>
+                    <div class="gallery-caption">Museum Design Inspiration</div>
+                    <div class="gallery-date">12 April 2025</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">47</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">15</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">33</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUOTES TAB -->
+    <div class="tab-content" id="quotesTab">
+        <h2 class="section-title">💌 Your Quotes In Here</h2>
+        <div class="quotes-grid">
+            <div class="quote-card">
+                <div class="quote-category">PRENSIP</div>
+                <div class="quote-polaroid" onclick="openModal('quote1')">
+                    <p class="quote-text">"Hidup Kalo Ga 
+                        XNgalah Ya Kalah"</p>
+                    <p class="quote-author">- Galuh Prabusariwangi</p>
+                    <div class="quote-date">Posted: 26 November 2025</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">28</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">😊 <span class="reaction-count">15</span></button>
+                </div>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-category">Memories</div>
+                <div class="quote-polaroid" onclick="openModal('quote2')">
+                    <p class="quote-text">"Gak nyangka 3 tahun udah berlalu. Dari yang gak kenal jadi keluarga. Miss you all already! 😭"</p>
+                    <p class="quote-author">- Budi Santoso</p>
+                    <div class="quote-date">Posted: 22 Maret 2025</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">35</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">😭 <span class="reaction-count">22</span></button>
+                </div>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-category">Love</div>
+                <div class="quote-polaroid" onclick="openModal('quote3')">
+                    <p class="quote-text">"Kelas paling gokil dan seru sepanjang masa. Love you guys! Thank you for all the laughter and support."</p>
+                    <p class="quote-author">- Dian Permata</p>
+                    <div class="quote-date">Posted: 30 Maret 2025</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">42</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">😂 <span class="reaction-count">18</span></button>
+                </div>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-category">Inspiration</div>
+                <div class="quote-polaroid" onclick="openModal('quote4')">
+                    <p class="quote-text">"Dari yang gak kenal jadi keluarga. Ini kelas terbaik! Semoga kita semua sukses dan tetap keep in touch ya!"</p>
+                    <p class="quote-author">- Andi Pratama</p>
+                    <div class="quote-date">Posted: 5 April 2025</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">31</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">👍 <span class="reaction-count">25</span></button>
+                </div>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-category">Future</div>
+                <div class="quote-polaroid" onclick="openModal('quote5')">
+                    <p class="quote-text">"Semoga kita semua sukses dan tetap keep in touch ya! Pengalaman yang gak akan pernah terlupakan."</p>
+                    <p class="quote-author">- Rina Sari</p>
+                    <div class="quote-date">Posted: 12 April 2025</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">29</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">✨ <span class="reaction-count">20</span></button>
+                </div>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-category">Heartfelt</div>
+                <div class="quote-polaroid" onclick="openModal('quote6')">
+                    <p class="quote-text">"Pengalaman yang gak akan pernah terlupakan. Forever in my heart! ❤️ Thank you for being amazing friends."</p>
+                    <p class="quote-author">- Reza Gunawan</p>
+                    <div class="quote-date">Posted: 18 April 2025</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">38</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">😊 <span class="reaction-count">16</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT US TAB -->
+    <div class="tab-content about-section" id="aboutTab">
+        <h2 class="section-title">👥 About Our Team</h2>
+        <div class="team-grid">
+            <!-- Pengurus Inti -->
+            <div class="team-card">
+                <div class="team-category">Leader</div>
+                <div class="team-polaroid" onclick="openModal('team1')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="MAS FATHIRR">
+                    </div>
+                    <div class="team-caption">MAS FATHIRR</div>
+                    <div class="team-date">Ketua Kelas</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">56</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">👑 <span class="reaction-count">34</span></button>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-category">Vice Leader</div>
+                <div class="team-polaroid" onclick="openModal('team2')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="MAS HAQI">
+                    </div>
+                    <div class="team-caption">MAS HAQI</div>
+                    <div class="team-date">Wakil Ketua</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">48</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">⭐ <span class="reaction-count">29</span></button>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-category">Secretary</div>
+                <div class="team-polaroid" onclick="openModal('team3')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="MBA OKTA">
+                    </div>
+                    <div class="team-caption">MBA OKTA</div>
+                    <div class="team-date">Sekretaris</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">52</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">📝 <span class="reaction-count">31</span></button>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-category">Treasurer</div>
+                <div class="team-polaroid" onclick="openModal('team4')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="MBA ERINE">
+                    </div>
+                    <div class="team-caption">MBA ERINE</div>
+                    <div class="team-date">Bendahara</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">44</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">💰 <span class="reaction-count">27</span></button>
+                </div>
+            </div>
+
+            <!-- Anggota Kelas -->
+            <div class="team-card">
+                <div class="team-category">Creative</div>
+                <div class="team-polaroid" onclick="openModal('team5')">
+                    <div class="team-photo">
+                        <img src="menq.jpg" alt="FAREL">
+                    </div>
+                    <div class="team-caption">FAREL a.k.a Menq</div>
+                    <div class="team-date">Creative Designer</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">61</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎨 <span class="reaction-count">38</span></button>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-category">Rapper</div>
+                <div class="team-polaroid" onclick="openModal('team6')">
+                    <div class="team-photo">
+                        <img src="repper.jpg" alt="AWANK">
+                    </div>
+                    <div class="team-caption">AWANK</div>
+                    <div class="team-date">Rapper Jawir</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">39</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎤 <span class="reaction-count">24</span></button>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-category">Starboy</div>
+                <div class="team-polaroid" onclick="openModal('team7')">
+                    <div class="team-photo">
+                        <img src="adit.jpg" alt="ADIT">
+                    </div>
+                    <div class="team-caption">ADIT</div>
+                    <div class="team-date">Pemeran Utama</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">30</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🤝 <span class="reaction-count">24</span></button>
+                </div>
+            </div>
+
+            <!-- Tambahkan 28 anggota lainnya di sini -->
+            <div class="team-card">
+                <div class="team-category">Starlink</div>
+                <div class="team-polaroid" onclick="openModal('team8')">
+                    <div class="team-photo">
+                        <img src="gall.jpg" alt="galuh">
+                    </div>
+                    <div class="team-caption">GALUH PRABUSARIWANGI</div>
+                    <div class="team-date">Starlink</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">42</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎨 <span class="reaction-count">28</span></button>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-category">NPC</div>
+                <div class="team-polaroid" onclick="openModal('team9')">
+                    <div class="team-photo">
+                        <img src="dapa.jpg" alt="Daffa">
+                    </div>
+                    <div class="team-caption">Daffa</div>
+                    <div class="team-date">APA YAK</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">38</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">✏️ <span class="reaction-count">25</span></button>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-category">Hitam</div>
+                <div class="team-polaroid" onclick="openModal('team10')">
+                    <div class="team-photo">
+                        <img src="SAYYID.jpg" alt="Sayyid Ardyan">
+                    </div>
+                    <div class="team-caption">SAYYID EGILUY</div>
+                    <div class="team-date">OOTD FULL HITAM LEGAM</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">35</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">💻 <span class="reaction-count">22</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan dengan 25 anggota lainnya -->
+            <!-- Untuk menghemat ruang, saya akan menambahkan 25 placeholder -->
+            <!-- Anda bisa mengganti gambar dan nama sesuai kebutuhan -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+
+                <div class="team-polaroid" onclick="openModal('team11')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Om hadyan">
+                    </div>
+                    <div class="team-caption">Om Hadyan</div>
+                    <div class="team-date">RICH GUY</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">25</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">⭐ <span class="reaction-count">18</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 anggota -->
+            <!-- Saya akan menambahkan placeholder untuk 24 anggota lainnya -->
+            <!-- Anda bisa mengganti dengan data yang sebenarnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team12')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 12">
+                    </div>
+                    <div class="team-caption">ANGGOTA 12</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">24</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🌟 <span class="reaction-count">16</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan dengan pola yang sama hingga 35 -->
+            <!-- Untuk menghemat ruang, saya akan menambahkan placeholder untuk 23 anggota lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team13')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 13">
+                    </div>
+                    <div class="team-caption">ANGGOTA 13</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">22</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">✨ <span class="reaction-count">15</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Saya akan menambahkan 22 placeholder lainnya -->
+            <!-- Anda bisa mengganti dengan data yang sebenarnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team14')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 14">
+                    </div>
+                    <div class="team-caption">ANGGOTA 14</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">20</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎯 <span class="reaction-count">14</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Untuk menghemat ruang, saya akan menambahkan placeholder untuk 21 anggota lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team15')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 15">
+                    </div>
+                    <div class="team-caption">ANGGOTA 15</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">18</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🔥 <span class="reaction-count">12</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Saya akan menambahkan 20 placeholder lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team16')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 16">
+                    </div>
+                    <div class="team-caption">ANGGOTA 16</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">16</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">💫 <span class="reaction-count">11</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Untuk menghemat ruang, saya akan menambahkan placeholder untuk 19 anggota lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team17')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 17">
+                    </div>
+                    <div class="team-caption">ANGGOTA 17</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">14</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎨 <span class="reaction-count">10</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Saya akan menambahkan 18 placeholder lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team18')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 18">
+                    </div>
+                    <div class="team-caption">ANGGOTA 18</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">12</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">📸 <span class="reaction-count">9</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Untuk menghemat ruang, saya akan menambahkan placeholder untuk 17 anggota lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team19')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 19">
+                    </div>
+                    <div class="team-caption">ANGGOTA 19</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">10</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎭 <span class="reaction-count">8</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Saya akan menambahkan 16 placeholder lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team20')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 20">
+                    </div>
+                    <div class="team-caption">ANGGOTA 20</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">8</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">💡 <span class="reaction-count">7</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Untuk menghemat ruang, saya akan menambahkan placeholder untuk 15 anggota lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team21')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 21">
+                    </div>
+                    <div class="team-caption">ANGGOTA 21</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">6</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎵 <span class="reaction-count">5</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Saya akan menambahkan 14 placeholder lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team22')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 22">
+                    </div>
+                    <div class="team-caption">ANGGOTA 22</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">4</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎮 <span class="reaction-count">3</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Untuk menghemat ruang, saya akan menambahkan placeholder untuk 13 anggota lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team23')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 23">
+                    </div>
+                    <div class="team-caption">ANGGOTA 23</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">2</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">📚 <span class="reaction-count">1</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Saya akan menambahkan 12 placeholder lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team24')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 24">
+                    </div>
+                    <div class="team-caption">ANGGOTA 24</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">1</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎯 <span class="reaction-count">0</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Untuk menghemat ruang, saya akan menambahkan placeholder untuk 11 anggota lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team25')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 25">
+                    </div>
+                    <div class="team-caption">ANGGOTA 25</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">0</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🌟 <span class="reaction-count">0</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Saya akan menambahkan 10 placeholder lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team26')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 26">
+                    </div>
+                    <div class="team-caption">ANGGOTA 26</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">0</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">✨ <span class="reaction-count">0</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Untuk menghemat ruang, saya akan menambahkan placeholder untuk 9 anggota lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team27')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 27">
+                    </div>
+                    <div class="team-caption">ANGGOTA 27</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">0</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎨 <span class="reaction-count">0</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Saya akan menambahkan 8 placeholder lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team28')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 28">
+                    </div>
+                    <div class="team-caption">ANGGOTA 28</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">0</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">📸 <span class="reaction-count">0</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Untuk menghemat ruang, saya akan menambahkan placeholder untuk 7 anggota lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team29')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 29">
+                    </div>
+                    <div class="team-caption">ANGGOTA 29</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">0</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎭 <span class="reaction-count">0</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Saya akan menambahkan 6 placeholder lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team30')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 30">
+                    </div>
+                    <div class="team-caption">ANGGOTA 30</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">0</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">💡 <span class="reaction-count">0</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Untuk menghemat ruang, saya akan menambahkan placeholder untuk 5 anggota lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team31')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 31">
+                    </div>
+                    <div class="team-caption">ANGGOTA 31</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">0</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎵 <span class="reaction-count">0</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Saya akan menambahkan 4 placeholder lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team32')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 32">
+                    </div>
+                    <div class="team-caption">ANGGOTA 32</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">0</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎮 <span class="reaction-count">0</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Untuk menghemat ruang, saya akan menambahkan placeholder untuk 3 anggota lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team33')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 33">
+                    </div>
+                    <div class="team-caption">ANGGOTA 33</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">0</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">📚 <span class="reaction-count">0</span></button>
+                </div>
+            </div>
+
+            <!-- Lanjutkan hingga 35 -->
+            <!-- Saya akan menambahkan 2 placeholder lainnya -->
+            
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team34')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 34">
+                    </div>
+                    <div class="team-caption">ANGGOTA 34</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">0</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🎯 <span class="reaction-count">0</span></button>
+                </div>
+            </div>
+
+            <!-- Anggota ke-35 -->
+            <div class="team-card">
+                <div class="team-category">Member</div>
+                <div class="team-polaroid" onclick="openModal('team35')">
+                    <div class="team-photo">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="ANGGOTA 35">
+                    </div>
+                    <div class="team-caption">ANGGOTA 35</div>
+                    <div class="team-date">Class Member</div>
+                </div>
+                <div class="reactions">
+                    <button class="reaction-btn" onclick="addReaction(this)">❤️ <span class="reaction-count">0</span></button>
+                    <button class="reaction-btn" onclick="addReaction(this)">🌟 <span class="reaction-count">0</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-image" id="modalImage"></div>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle">Graphic Desain to Zen1</h2>
+                <p class="modal-date" id="modalDate">1 Desember 2025</p>
+                <p class="modal-description" id="modalDescription">
+                    NANTI KITA BIKIN PADA SAAT SUDAH KUNJUNGAN. ❤️
+                </p>
+                <div class="modal-tags">
+                    <span class="tag">Moseum Trip</span>
+                    <span class="tag">Jakarta</span>
+                    <span class="tag">Unforgettable</span>
+                </div>
+                <div class="modal-reactions">
+                    <button class="modal-reaction-btn" onclick="reactModal('❤️')">❤️</button>
+                    <button class="modal-reaction-btn" onclick="reactModal('😂')">😂</button>
+                    <button class="modal-reaction-btn" onclick="reactModal('🔥')">🔥</button>
+                    <button class="modal-reaction-btn" onclick="reactModal('😭')">😭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ZOOM OVERLAY -->
+    <div class="zoom-overlay" id="zoomOverlay">
+        <button class="zoom-close" onclick="closeZoom()">✕</button>
+        <div class="zoom-overlay-content">
+            <img id="zoomImage" src="" alt="">
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+         <p>Created By <span class="footer-heart">❤️</span> <a href="https://www.instagram.com/alfdffaa?igsh=ejI4ZWMxMmhpb2Jw" target="_blank" rel="noopener noreferrer" class="ig-link">@alfdffaa</a></p>
+        <p style="margin-top: 10px; font-size: 14px;">© SEMOGA ORANG ORANG NYA GA ADA YANG SLEK</p>
+    </div>
+
+    <script>
+        // Audio functionality
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const audioToggle = document.getElementById('audioToggle');
+        const audioStatus = document.getElementById('audioStatus');
+        
+        // Initialize audio state
+        let isPlaying = false;
+        
+        // Function to toggle audio
+        function toggleAudio() {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                audioToggle.innerHTML = '▶️';
+                audioStatus.textContent = 'Paused';
+                isPlaying = false;
+            } else {
+                // Try to play the audio
+                backgroundMusic.play().then(() => {
+                    audioToggle.innerHTML = '⏸️';
+                    audioStatus.textContent = 'Playing';
+                    isPlaying = true;
+                }).catch(error => {
+                    console.error('Audio playback failed:', error);
+                    // Show a message to the user
+                    alert('Please interact with the page first to enable audio playback.');
+                });
+            }
+        }
+        
+        // Add click event to audio toggle
+        audioToggle.addEventListener('click', toggleAudio);
+        
+        // Try to play audio when user interacts with the page
+        document.addEventListener('click', function initialPlay() {
+            if (!isPlaying) {
+                backgroundMusic.play().then(() => {
+                    audioToggle.innerHTML = '⏸️';
+                    audioStatus.textContent = 'Playing';
+                    isPlaying = true;
+                }).catch(error => {
+                    console.log('Audio autoplay blocked, waiting for user interaction');
+                });
+                
+                // Remove the event listener after first interaction
+                document.removeEventListener('click', initialPlay);
+            }
+        });
+
+        // Extended Memory data for all sections
+        const memoryData = {
+            // Home tab memories
+            'trip1': {
+                image: 'zen1.jpg',
+                title: 'Graphic Design To ZEN 1 Moseum',
+                date: '1 Desember 2025',
+                description: 'Deskripsinya apa yaaaaaa??????? ❤️',
+                tags: ['Moseum Trip', 'Jakarta', 'Unforgettable']
+            },
+            'party1': {
+                image: 'tes1.jpg',
+                title: 'HMMMM',
+                date: '27 September 2025',
+                description: 'the time when we met for the first time, namely at the time of accepting new students',
+                tags: ['Admission', 'Celebration', 'Welcome']
+            },
+            'party2': {
+                image: 'CAFE.jpg',
+                title: 'CAFE MOMMENT',
+                date: '27 September 2025',
+                description: 'the time when we met for the first time, namely at the time of accepting new students',
+                tags: [ 'Celebration', 'Welcome']
+            },
+            'party3': {
+                image: 'USI.jpg',
+                title: 'UNIVERSITAS SAINS INDONESIA',
+                date: '30 Oktober 2025',
+                description: 'the time when we met for the first time, namely at the time of accepting new students',
+                tags: [ 'Celebration', 'Welcome']
+            },
+            'party4': {
+                image: 'gacoan.jpg',
+                title: 'GACOAN MOMMENT',
+                date: '4 November 2025',
+                description: 'the time when we met for the first time, namely at the time of accepting new students',
+                tags: [ 'Celebration', 'Welcome']
+                },
+            'party5': {
+                image: 'uts.jpg',
+                title: 'EXAM MOMMENT',
+                date: '18 November 2025',
+                description: 'the time when we met for the first time, namely at the time of accepting new students',
+                tags: [ 'Celebration', 'EXAMMMM']
+            },
+            'study1': {
+                image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                title: 'Belajar bareng buat ujian',
+                date: '5 Oktober 2024',
+                description: 'Study group session yang produktif! Awalnya rencana mau belajar serius, tapi akhirnya malah becanda mulu 🤣 Tapi alhamdulillah tetep dapet ilmunya. Teamwork makes the dream work! Thanks to everyone yang udah bantuin jelasin materi yang susah.',
+                tags: ['Study', 'Teamwork', 'Exam Prep']
+            },
+            'fun1': {
+                image: 'https://images.unsplash.com/photo-1511882150382-421056c89033?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                title: 'Main game bareng',
+                date: '12 Oktober 2024',
+                description: 'Jam istirahat paling seru! Main game mobile bareng sampe lupa waktu. Akhirnya kena marah guru karena telat masuk kelas wkwk 😅 But it was worth it! Moments like these yang bikin sekolah jadi lebih fun.',
+                tags: ['Gaming', 'Break Time', 'Fun']
+            },
+
+            // Gallery tab data
+            'gallery1': {
+                image: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                title: 'Class Photo Session 2025',
+                date: '15 Januari 2025',
+                description: 'Momen spesial foto kelas kita yang pertama di tahun 2025! Semua tampil dengan outfit terbaik dan senyuman yang cerah. Ini adalah awal dari banyak kenangan indah yang akan kita buat bersama sepanjang tahun ini.',
+                tags: ['Class Photo', '2025', 'Memories']
+            },
+            'gallery2': {
+                image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                title: 'Study Group Marathon',
+                date: '20 Februari 2025',
+                description: 'Sesi belajar marathon yang super produktif! Dari pagi sampai malam kita saling support dan membantu memahami materi yang sulit. Teamwork yang luar biasa!',
+                tags: ['Study', 'Teamwork', 'Learning']
+            },
+            'gallery3': {
+                image: 'https://images.unsplash.com/photo-1511882150382-421056c89033?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                title: 'Game Night Extravaganza',
+                date: '5 Maret 2025',
+                description: 'Malam yang penuh tawa dan kompetisi sehat! Berbagai game kita mainkan bareng, dari mobile games sampai board games. Pemenangnya dapat hadiah spesial!',
+                tags: ['Games', 'Fun', 'Competition']
+            },
+            'gallery4': {
+                image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                title: 'Museum Design Inspiration',
+                date: '12 April 2025',
+                description: 'Kunjungan edukatif ke museum untuk mencari inspirasi desain. Banyak karya seni dan sejarah yang menginspirasi project desain kita selanjutnya.',
+                tags: ['Museum', 'Inspiration', 'Education']
+            },
+
+            // Quotes tab data
+            'quote1': {
+                image: 'gall.jpg',
+                title: 'Pesan dari Galuh',
+                date: '26 November 2025',
+                description: '"Ada 2 tipe manusia ada Kantal dan ada kontol" - Galuh\n\n adalah salah satu anggota paling ceria di kelas. Dia selalu membawa energi positif dan siap membantu teman yang membutuhkan.',
+                tags: ['Friendship', 'Love', 'Family']
+            },
+            'quote2': {
+                image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                title: 'Pesan dari Budi',
+                date: '22 Maret 2025',
+                description: '"Gak nyangka 3 tahun udah berlalu. Dari yang gak kenal jadi keluarga. Miss you all already! 😭" - Budi Santoso\n\nBudi dikenal sebagai teman yang setia dan selalu bisa diandalkan. Dia punya selera humor yang membuat suasana selalu hidup.',
+                tags: ['Memories', 'Family', 'Emotional']
+            },
+
+            // Team tab data - TAMBAHKAN DATA INI
+            'team1': {
+                image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                title: 'MAS FATHIRR - Ketua Kelas',
+                date: 'Leader since 2024',
+                description: 'MAS FATHIRR adalah pemimpin yang inspiratif dan penuh dedikasi. Dengan visi yang jelas dan kemampuan memimpin yang luar biasa, dia berhasil membawa kelas kita menjadi yang terbaik. Selalu siap membantu dan memberikan solusi untuk setiap masalah. Skill khusus: Leadership, Public Speaking, Problem Solving.',
+                tags: ['Leader', 'Visionary', 'Problem Solver']
+            },
+            'team2': {
+                image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                title: 'MAS HAQI - Wakil Ketua',
+                date: 'Vice Leader since 2024',
+                description: 'MAS HAQI adalah partner yang sempurna untuk ketua kelas. Dengan kemampuan organisasi yang luar biasa dan perhatian terhadap detail, dia memastikan segala sesuatu berjalan dengan lancar. Selalu menjadi penengah dalam setiap diskusi. Skill: Organization, Time Management, Conflict Resolution.',
+                tags: ['Organizer', 'Mediator', 'Detail-Oriented']
+            },
+            'team3': {
+                image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                title: 'MBA OKTA - Sekretaris',
+                date: 'Secretary since 2024',
+                description: 'MBA OKTA adalah sekretaris yang sangat terorganisir dan efisien. Catatan dan dokumentasinya selalu rapi dan lengkap. Dia memastikan semua informasi penting tersampaikan dengan baik ke seluruh anggota kelas. Skill: Documentation, Communication, Administration.',
+                tags: ['Secretary', 'Organized', 'Communicative']
+            },
+            'team4': {
+                image: 'https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                title: 'MBA ERINE - Bendahara',
+                date: 'Treasurer since 2024',
+                description: 'MBA ERINE mengelola keuangan kelas dengan sangat profesional dan transparan. Laporan keuangannya detail dan mudah dipahami. Selalu memberikan saran yang bijak dalam pengelolaan dana kelas. Skill: Financial Management, Transparency, Budgeting.',
+                tags: ['Treasurer', 'Financial', 'Trustworthy']
+            },
+            'team5': {
+                image: 'menq.jpg',
+                title: 'FAREL DWI - Creative Director',
+                date: 'Member since 2024',
+                description: 'FAREL DWI adalah kreator yang penuh dengan ide-ide segar dan inovatif. Desain-desainnya selalu memukau dan memberikan warna baru untuk kelas kita. Skill: Graphic Design, Creative Thinking, Innovation.',
+                tags: ['Designer', 'Creative', 'Innovative']
+            },
+            'team6': {
+                image: 'repper.jpg',
+                title: 'AWANK - Rapper Jawir',
+                date: 'Entertainer since 2024',
+                description: 'AWANK adalah penghibur kelas dengan bakat rap yang unik. Gaya bicaranya yang "medok" selalu menghibur dan membuat suasana kelas menjadi hidup. Meski terlihat santai, dia sangat peduli dengan teman-temannya. Skill: Entertainment, Rap, Socializing.',
+                tags: ['Entertainer', 'Rapper', 'Friendly']
+            },
+            'team7': {
+                image: 'adit.jpg',
+                title: 'ADIT - Starboy',
+                date: 'Main Character since 2024',
+                description: 'ADIT adalah pemeran utama dengan karisma yang tinggi. Selalu menjadi pusat perhatian dengan gaya dan kepribadiannya yang menarik. Meski terlihat cool, dia adalah teman yang setia dan selalu siap membantu. Skill: Leadership, Charisma, Problem Solving.',
+                tags: ['Starboy', 'Charismatic', 'Leader']
+            },
+            // Tambahkan data untuk anggota lainnya
+            'team8': {
+                image: 'gall.jpg',
+                title: 'galuh - Graphic Designer',
+                date: 'Member since 2024',
+                description: 'galuh adalah desainer grafis yang sangat berbakat dengan kemampuan visual yang luar biasa. Karyanya selalu detail dan penuh makna. Skill: Graphic Design, Illustration, Branding.',
+                tags: ['Designer', 'Creative', 'Detail-Oriented']
+            },
+            'team9': {
+                image: 'dapa.jpg',
+                title: 'Daffa - NPC',
+                date: 'SUDAH MENJADI NPC DARI 2023',
+                description: 'Daffa adalah Karakter Npc di segala game pc maupun game android.',
+                tags: ['PES', 'NPC']
+            },
+            'team10': {
+                image: 'SAYYID.jpg',
+                title: 'Sayyid Ardyan- Hitam',
+                date: 'Member Suki since 2025',
+                description: 'Sayyid egiluy',
+                tags: ['Black', 'Coder', 'suki liar']
+            },
+            // Tambahkan data untuk anggota lainnya hingga 35
+            // Untuk menghemat ruang, saya akan menambahkan data placeholder
+            // Anda bisa mengganti dengan data yang sebenarnya
+            'team11': {
+                image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                title: 'Om hadyan asli ngawi',
+                date: 'Member suki since 1969',
+                description: 'Om hadyan asli ngawi sejak tahun 1969',
+                tags: ['rich', 'homok', 'suki liar']
+            },
+            // Lanjutkan hingga 35
+            'team35': {
+                image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                title: 'ANGGOTA 35',
+                date: 'Member since 2024',
+                description: 'Deskripsi untuk anggota 35. Anda bisa mengganti dengan deskripsi yang sesuai.',
+                tags: ['Member', 'Creative', 'Team Player']
+            }
+        };
+
+        // Switch tabs
+        function switchTab(tab) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            if (tab === 'home') {
+                document.getElementById('homeTab').classList.add('active');
+                document.getElementById('memoryWall').classList.add('active');
+            } else if (tab === 'gallery') {
+                document.getElementById('galleryTab').classList.add('active');
+            } else if (tab === 'quotes') {
+                document.getElementById('quotesTab').classList.add('active');
+            } else if (tab === 'about') {
+                document.getElementById('aboutTab').classList.add('active');
+            }
+            
+            // Add active to clicked button
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Zoom functionality
+        let isZoomed = false;
+        let currentScale = 1;
+        let currentTranslate = { x: 0, y: 0 };
+        let isDragging = false;
+        let startPos = { x: 0, y: 0 };
+
+        function openModal(memoryId) {
+            const memory = memoryData[memoryId];
+            if (!memory) {
+                // Default modal for items without specific data
+                const modalImage = document.getElementById('modalImage');
+                modalImage.innerHTML = '<img src="AWANK.jpg" alt="Default">';
+                document.getElementById('modalTitle').textContent = 'RAPPER JAWIR';
+                document.getElementById('modalDate').textContent = '2025';
+                document.getElementById('modalDescription').textContent = 'His name is Awang, he is a rapper from Java and has a unique way of speaking when talking to people or another name is "medok".';
+                document.querySelector('.modal-tags').innerHTML = '<span class="tag">Memory</span><span class="tag">Class</span><span class="tag">Friendship</span>';
+                document.getElementById('modal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+                return;
+            }
+            
+            
+            const modalImage = document.getElementById('modalImage');
+            modalImage.innerHTML = '';
+            
+            const img = document.createElement('img');
+            img.src = memory.image;
+            img.alt = memory.title;
+            img.onclick = () => openZoom(memory.image, memory.title);
+            
+            // Add zoom controls
+            const zoomControls = document.createElement('div');
+            zoomControls.className = 'zoom-controls';
+            zoomControls.innerHTML = `
+                <button class="zoom-btn" onclick="zoomIn(event)">➕</button>
+                <button class="zoom-btn" onclick="zoomOut(event)">➖</button>
+            `;
+            
+            const resetZoomBtn = document.createElement('button');
+            resetZoomBtn.className = 'reset-zoom';
+            resetZoomBtn.textContent = 'Reset Zoom';
+            resetZoomBtn.onclick = resetZoom;
+            
+            modalImage.appendChild(img);
+            modalImage.appendChild(zoomControls);
+            modalImage.appendChild(resetZoomBtn);
+            
+            // Reset zoom state
+            resetZoom();
+            
+            document.getElementById('modalTitle').textContent = memory.title;
+            document.getElementById('modalDate').textContent = memory.date;
+            document.getElementById('modalDescription').textContent = memory.description;
+            
+            const tagsContainer = document.querySelector('.modal-tags');
+            tagsContainer.innerHTML = memory.tags.map(tag => 
+                `<span class="tag">${tag}</span>`
+            ).join('');
+            
+            document.getElementById('modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openZoom(imageSrc, title) {
+            const zoomImage = document.getElementById('zoomImage');
+            zoomImage.src = imageSrc;
+            zoomImage.alt = title;
+            
+            document.getElementById('zoomOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeZoom() {
+            document.getElementById('zoomOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function zoomIn(event) {
+            event.stopPropagation();
+            const modalImage = document.querySelector('.modal-image');
+            const img = modalImage.querySelector('img');
+            
+            currentScale += 0.5;
+            updateImageTransform();
+            
+            if (currentScale > 1) {
+                modalImage.classList.add('zoomed');
+                modalImage.style.cursor = 'grab';
+            }
+        }
+
+        function zoomOut(event) {
+            event.stopPropagation();
+            const modalImage = document.querySelector('.modal-image');
+            const img = modalImage.querySelector('img');
+            
+            currentScale = Math.max(0.5, currentScale - 0.5);
+            updateImageTransform();
+            
+            if (currentScale <= 1) {
+                modalImage.classList.remove('zoomed');
+                modalImage.style.cursor = 'zoom-in';
+                resetTranslate();
+            }
+        }
+
+        function resetZoom() {
+            currentScale = 1;
+            resetTranslate();
+            updateImageTransform();
+            
+            const modalImage = document.querySelector('.modal-image');
+            modalImage.classList.remove('zoomed');
+            modalImage.style.cursor = 'zoom-in';
+        }
+
+        function resetTranslate() {
+            currentTranslate = { x: 0, y: 0 };
+        }
+
+        function updateImageTransform() {
+            const modalImage = document.querySelector('.modal-image');
+            const img = modalImage.querySelector('img');
+            
+            img.style.transform = `scale(${currentScale}) translate(${currentTranslate.x}px, ${currentTranslate.y}px)`;
+        }
+
+        // Drag functionality for zoomed image
+        document.addEventListener('mousedown', (e) => {
+            const modalImage = document.querySelector('.modal-image.zoomed');
+            if (modalImage && modalImage.contains(e.target)) {
+                isDragging = true;
+                startPos = { x: e.clientX - currentTranslate.x, y: e.clientY - currentTranslate.y };
+                modalImage.style.cursor = 'grabbing';
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            currentTranslate.x = e.clientX - startPos.x;
+            currentTranslate.y = e.clientY - startPos.y;
+            updateImageTransform();
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            const modalImage = document.querySelector('.modal-image.zoomed');
+            if (modalImage) {
+                modalImage.style.cursor = 'grab';
+            }
+        });
+
+        // Touch events for mobile
+        document.addEventListener('touchstart', (e) => {
+            const modalImage = document.querySelector('.modal-image.zoomed');
+            if (modalImage && modalImage.contains(e.target)) {
+                isDragging = true;
+                const touch = e.touches[0];
+                startPos = { x: touch.clientX - currentTranslate.x, y: touch.clientY - currentTranslate.y };
+            }
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            
+            const touch = e.touches[0];
+            currentTranslate.x = touch.clientX - startPos.x;
+            currentTranslate.y = touch.clientY - startPos.y;
+            updateImageTransform();
+        });
+
+        document.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // Close zoom overlay when clicking outside image
+        document.getElementById('zoomOverlay').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('zoomOverlay')) {
+                closeZoom();
+            }
+        });
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // React in modal
+        function reactModal(emoji) {
+            const btn = event.target;
+            btn.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                btn.style.transform = 'scale(1)';
+            }, 200);
+            
+            // Show toast notification
+            const toast = document.createElement('div');
+            toast.textContent = `You reacted with ${emoji}`;
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #667eea;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.remove();
+            }, 2000);
+        }
+
+        function filterMemories(category) {
+            const cards = document.querySelectorAll('.memory-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter cards
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'scale(1)';
+                    }, 10);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+
+        function addReaction(button) {
+            const countSpan = button.querySelector('.reaction-count');
+            let count = parseInt(countSpan.textContent);
+            count++;
+            countSpan.textContent = count;
+            
+            // Animation
+            button.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Add parallax effect to stickers
+        document.addEventListener('mousemove', (e) => {
+            const stickers = document.querySelectorAll('.sticker');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            stickers.forEach((sticker, index) => {
+                const speed = (index + 1) * 20;
+                const xMove = (x - 0.5) * speed;
+                const yMove = (y - 0.5) * speed;
+                sticker.style.transform = `translate(${xMove}px, ${yMove}px) rotate(${xMove}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
